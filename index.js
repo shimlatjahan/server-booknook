@@ -594,9 +594,7 @@ async function run() {
                 throw error;
               }
 
-              // =====================================
-              // DECREASE AVAILABLE COPIES
-              // =====================================
+             
 
               const updateResult =
                 await booksCollection.updateOne(
@@ -621,10 +619,7 @@ async function run() {
                 throw error;
               }
 
-              // =====================================
-              // CREATE BORROW RECORD
-              // =====================================
-
+             
               const newBorrow = {
                 bookId: bookObjectId,
 
