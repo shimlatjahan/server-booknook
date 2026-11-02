@@ -560,10 +560,7 @@ async function run() {
                 throw error;
               }
 
-              // =====================================
-              // FIND BOOK
-              // =====================================
-
+              
               const book = await booksCollection.findOne(
                 {
                   _id: bookObjectId,
@@ -578,10 +575,7 @@ async function run() {
                 throw error;
               }
 
-              // =====================================
-              // CHECK AVAILABLE COPIES
-              // =====================================
-
+              
               if (
                 typeof book.availableCopies !== "number" ||
                 book.availableCopies < 1
