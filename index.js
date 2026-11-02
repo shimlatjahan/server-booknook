@@ -476,7 +476,7 @@ async function run() {
           });
         }
 
-        // Cannot delete currently borrowed books
+        
         if (
           existingBook.availableCopies !==
           existingBook.totalCopies
@@ -515,9 +515,7 @@ async function run() {
       }
     });
 
-    // =====================================
-    // API 06: POST BORROW BOOK (NEW)
-    // =====================================
+   
 
     app.post("/borrows", verifyJwt, async (req, res) => {
       try {
