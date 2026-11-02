@@ -693,9 +693,7 @@ async function run() {
 
 
 
-    // =====================================
-// API 07: GET MY BORROWS
-// =====================================
+    
 
 app.get("/borrows/my", verifyJwt, async (req, res) => {
   try {
@@ -725,9 +723,7 @@ app.get("/borrows/my", verifyJwt, async (req, res) => {
 
 
 
-// =====================================
-// API 08: RETURN BORROWED BOOK
-// =====================================
+
 
 app.patch(
   "/borrows/:id/return",
