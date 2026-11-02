@@ -225,9 +225,7 @@ async function run() {
 
     console.log("Borrow collection ready!");
 
-    // =====================================
-    // API 01: GET ALL BOOKS
-    // =====================================
+    
 
     app.get("/books", async (req, res) => {
       try {
@@ -256,9 +254,7 @@ async function run() {
       }
     });
 
-    // =====================================
-    // API 02: GET SINGLE BOOK DETAILS
-    // =====================================
+  
 
     app.get("/books/:id", async (req, res) => {
       try {
@@ -293,9 +289,7 @@ async function run() {
       }
     });
 
-    // =====================================
-    // API 03: POST ADD NEW BOOK
-    // =====================================
+   
 
     app.post("/books", verifyJwt, async (req, res) => {
       try {
@@ -338,9 +332,7 @@ async function run() {
       }
     });
 
-    // =====================================
-    // API 04: PATCH UPDATE BOOK
-    // =====================================
+    
 
     app.patch("/books/:id", verifyJwt, async (req, res) => {
       try {
@@ -443,9 +435,7 @@ async function run() {
       }
     });
 
-    // =====================================
-    // API 05: DELETE BOOK
-    // =====================================
+   
 
     app.delete("/books/:id", verifyJwt, async (req, res) => {
       try {
