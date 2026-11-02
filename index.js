@@ -537,9 +537,7 @@ async function run() {
         const insertedId = await client.withSession(
           async (session) => {
             return session.withTransaction(async () => {
-              // =====================================
-              // CHECK DUPLICATE BORROW
-              // =====================================
+              
 
               const existingBorrow =
                 await borrowsCollection.findOne(
