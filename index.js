@@ -642,9 +642,7 @@ async function run() {
                 returnedAt: null,
               };
 
-              // =====================================
-              // SAVE BORROW RECORD
-              // =====================================
+              
 
               const result =
                 await borrowsCollection.insertOne(
@@ -657,9 +655,8 @@ async function run() {
           }
         );
 
-        // =====================================
-        // BORROW SUCCESS
-        // =====================================
+       
+        
 
         return res.status(201).json({
           success: true,
@@ -667,14 +664,14 @@ async function run() {
           insertedId,
         });
       } catch (error) {
-        // Duplicate active borrow
+        
         if (error.code === 11000) {
           return res.status(409).json({
             message: "You have already borrowed this book",
           });
         }
 
-        // Business rule errors
+        
         if (error.statusCode) {
           return res.status(error.statusCode).json({
             message: error.message,
