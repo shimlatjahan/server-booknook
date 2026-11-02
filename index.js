@@ -4,9 +4,6 @@ import dotenv from "dotenv";
 import { MongoClient, ObjectId } from "mongodb";
 import { createRemoteJWKSet, jwtVerify } from "jose";
 
-// =====================================
-// ENVIRONMENT CONFIGURATION
-// =====================================
 
 dotenv.config();
 
@@ -15,25 +12,37 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 const uri = process.env.MONGODB_URI;
 
-const AUTH_URL = (
-  process.env.BETTER_AUTH_URL || "http://localhost:3000"
-).replace(/\/+$/, "");
+// =====================================
+// ENVIRONMENT CONFIGURATION
+// =====================================
 
-// =====================================
-// EXPRESS MIDDLEWARE
-// =====================================
+const AUTH_URL = process.env.BETTER_AUTH_URL?.trim().replace(/\/+$/, "");
+
+const CLIENT_URL = process.env.CLIENT_URL?.trim().replace(/\/+$/, "");
+
+if (!AUTH_URL || !CLIENT_URL) {
+  throw new Error(
+    "BETTER_AUTH_URL and CLIENT_URL must be defined in .env"
+  );
+}
+
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: CLIENT_URL,
   })
 );
-
 app.use(express.json());
 
-// =====================================
-// BETTER AUTH JWT VERIFICATION
-// =====================================
+app.get("/", (req, res) => {
+  res.json({
+    message: "BookNook Server is Running!"
+  });
+});
+
+
+
+
 
 const JWKS = createRemoteJWKSet(
   new URL(`${AUTH_URL}/api/auth/jwks`)
@@ -92,9 +101,7 @@ const verifyJwt = async (req, res, next) => {
   }
 };
 
-// =====================================
-// VALIDATION HELPERS
-// =====================================
+
 
 const allowedCategories = [
   "Fiction",
@@ -176,9 +183,7 @@ const validateBookData = (data) => {
   };
 };
 
-// =====================================
-// MONGODB CONNECTION
-// =====================================
+
 
 async function run() {
   let client;
@@ -200,9 +205,7 @@ async function run() {
 
     console.log("MongoDB Connected Successfully!");
 
-    // =====================================
-    // COLLECTIONS
-    // =====================================
+    
 
     const booksCollection = database.collection("books");
 
@@ -838,12 +841,8 @@ app.patch(
     // =====================================
 
     const server = app.listen(PORT, () => {
-      console.log(
-        `BookNook Server Running on Port ${PORT}`
-      );
-
-      console.log(`http://localhost:${PORT}`);
-    });
+  console.log(`BookNook Server Running on Port ${PORT}`);
+});
 
     server.on("error", (error) => {
       console.error(
@@ -862,8 +861,8 @@ app.patch(
   }
 }
 
-// =====================================
-// RUN APPLICATION
-// =====================================
+
 
 run();
+
+export default app
