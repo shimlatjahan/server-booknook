@@ -222,7 +222,7 @@ async function run() {
       serverSelectionTimeoutMS: 10000,
     });
 
-    await client.connect();
+    // await client.connect();
 
     const database = client.db("booknookDB");
 
