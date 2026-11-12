@@ -29,9 +29,17 @@ if (!AUTH_URL || !CLIENT_URL) {
 
 app.use(
   cors({
-    origin: CLIENT_URL,
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(["https://client-booknook.vercel.app"])) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
   })
-);
+); 
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
